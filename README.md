@@ -34,6 +34,19 @@ npm i zustand
 
 npm install react-router-dom localforage sort-by
 
+# Node.js 타입 선언 설치
+
+npm install @types/node
+
+# ES 모듈 형식으로 제공되는 lodash 라이브러리의 설치. 필요한 유틸리티 함수만 선택적으로 가져와서 사용할 수 있습니다.
+
+npm i lodash-es
+npm i -D @types/lodash-es
+
+# Zustand의 Immer 미들웨어를 사용하기 위해 설치해야 하는 피어 의존성(Peer Dependency)입니다.
+
+npm i immer
+
 # ESLint 설치
 
 npm i -D eslint prettier eslint-plugin-react eslint-config-prettier eslint-plugin-prettier @typescript-eslint/eslint-plugin @typescript-eslint/parser
