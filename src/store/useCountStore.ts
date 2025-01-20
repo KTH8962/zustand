@@ -1,60 +1,51 @@
 import { create } from "zustand"
 import { omit } from "lodash-es"
-import { combine } from "zustand/middleware"
 
-// interface State {
-//   count: number
-//   double: number
-//   min: number
-//   max: number
-// }
-// interface Actions {
-//   actions: {
-//     increase: () => void
-//     decrease: () => void
-//     resetState: (keys?: Array<keyof State>) => void
-//     deleteState: (keys?: Array<keyof State>) => void
-//   }
-// }
+interface State {
+  count: number
+  double: number
+  min: number
+  max: number
+}
+interface Actions {
+  actions: {
+    increase: () => void
+    decrease: () => void
+    resetState: (keys?: Array<keyof State>) => void
+    deleteState: (keys?: Array<keyof State>) => void
+  }
+}
 
-// const initialState: State = {
-//   count: 1,
-//   double: 2,
-//   min: 0,
-//   max: 99,
-// }
-
-const initialState = {
+const initialState: State = {
   count: 1,
   double: 2,
   min: 0,
   max: 99,
 }
 
-export const useCountStore = create(
-  combine(initialState, (set) => ({
-    actions: {
-      increase: () => set((state) => ({ count: state.count + 1 })),
-      decrease: () => set((state) => ({ count: state.count - 1 })),
-      resetState: (keys: Array<keyof typeof initialState>) => {
-        if (keys!) {
-          set(initialState)
-          return
-        }
-        keys.forEach((key) => {
-          set({ [key]: initialState[key] })
-        })
-      },
-      deleteState: (keys: Array<keyof typeof initialState>) => {
-        set((state) => {
-          const newState = omit(state, keys)
-          console.log(newState)
-          return newState
-        })
-      },
+export const useCountStore = create<State & Actions>((set) => ({
+  ...initialState,
+  actions: {
+    increase: () => set((state) => ({ count: state.count + 1 })),
+    decrease: () => set((state) => ({ count: state.count - 1 })),
+    resetState: (keys: Array<keyof typeof initialState>) => {
+      if (keys!) {
+        set(initialState)
+        return
+      }
+      keys.forEach((key) => {
+        set({ [key]: initialState[key] })
+      })
     },
-  }))
-)
+    deleteState: (keys: Array<keyof typeof initialState>) => {
+      set((state) => {
+        const newState = omit(state, keys)
+        console.log(newState)
+        return newState
+      })
+    },
+  },
+}))
 
 // export const useCountStore = create<State & Actions>((set) => ({
 //   ...initialState,

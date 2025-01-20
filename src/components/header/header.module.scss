@@ -1,0 +1,25 @@
+header {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  padding: 0 20px;
+  gap: 0 30px;
+  height: 80px;
+  border-bottom: 1px solid #ccc;
+  nav {
+    display: flex;
+    align-items: center;
+    gap: 0 10px;
+    a {
+      &.active {
+        font-weight: bold;
+        color: blue;
+      }
+    }
+  }
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+}

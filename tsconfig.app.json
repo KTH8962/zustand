@@ -25,7 +25,10 @@
     "baseUrl": ".",
     "paths": {
       "@/*": ["src/*"],
-      "@assets/*": ["src/assets/*"]
+      "@assets/*": ["src/assets/*"],
+      "@store/*": ["src/store/*"],
+      "@page/*": ["src/page/*"],
+      "@components/*": ["src/components/*"]
     },
     "noImplicitAny": false,
     "strictNullChecks": false
