@@ -36,6 +36,15 @@ export const useCountStore = create(
     actions: {
       increase: () => set((state) => ({ count: state.count + 1 })),
       decrease: () => set((state) => ({ count: state.count - 1 })),
+      resetState: (keys: Array<keyof typeof initialState>) => {
+        if (keys!) {
+          set(initialState)
+          return
+        }
+        keys.forEach((key) => {
+          set({ [key]: initialState[key] })
+        })
+      },
       deleteState: (keys: Array<keyof typeof initialState>) => {
         set((state) => {
           const newState = omit(state, keys)
