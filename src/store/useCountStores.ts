@@ -1,5 +1,10 @@
 import { create } from "zustand"
-import { combine, persist, subscribeWithSelector } from "zustand/middleware"
+import {
+  combine,
+  devtools,
+  persist,
+  subscribeWithSelector,
+} from "zustand/middleware"
 import { immer } from "zustand/middleware/immer"
 
 const initialState = {
@@ -10,27 +15,29 @@ const initialState = {
 }
 
 export const useCountStores = create(
-  persist(
-    subscribeWithSelector(
-      immer(
-        combine(initialState, (set) => ({
-          actions: {
-            increase: () =>
-              set((state) => {
-                state.count += 1
-              }),
-            decrease: () =>
-              set((state) => {
-                state.count -= 1
-              }),
-          },
-        }))
-      )
-    ),
-    {
-      name: "countStores",
-      partialize: (state) => ({ count: state.count, double: state.double }),
-    }
+  devtools(
+    persist(
+      subscribeWithSelector(
+        immer(
+          combine(initialState, (set) => ({
+            actions: {
+              increase: () =>
+                set((state) => {
+                  state.count += 1
+                }),
+              decrease: () =>
+                set((state) => {
+                  state.count -= 1
+                }),
+            },
+          }))
+        )
+      ),
+      {
+        name: "countStores",
+        partialize: (state) => ({ count: state.count, double: state.double }),
+      }
+    )
   )
 )
 
